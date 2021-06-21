@@ -16,11 +16,25 @@ app.use(cors());
 
 // db config
 
-const conn = 'mongodb+srv://admin:zkYomq80UtLWeh6Q@cluster0.oe0jw.mongodb.net/backend-instagram?retryWrites=true&w=majority'
+const connection_url = 'mongodb+srv://admin:zkYomq80UtLWeh6Q@cluster0.oe0jw.mongodb.net/backend-instagram?retryWrites=true&w=majority';
+
+mongoose.connect(connection_url, {
+    useCreateIndex: true,
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+});
+
+mongoose.connection.once('open', () => {
+    console.log("DB is working on");
+})
 
 
 // api routes
 app.get('/', (req, res) => res.status(200).send('backend is working on 🔥'));
+
+app.post('/upload', (req, res) => {
+
+});
 
 // listener
 app.listen(port, () => console.log(`listening on ${port}`));
