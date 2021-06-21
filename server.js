@@ -4,7 +4,7 @@ import express from "express";
 import cors from "cors";
 import Pusher from "pusher";
 import mongoose from "mongoose";
-
+import dbModel from "./dbModel.js";
 
 // app config
 const app = express();
@@ -33,8 +33,26 @@ mongoose.connection.once('open', () => {
 app.get('/', (req, res) => res.status(200).send('backend is working on 🔥'));
 
 app.post('/upload', (req, res) => {
+    const body = req.body;
 
+    dbModel.create(body, (err, data) => {
+        if(err) {
+            res.status(500).send(err);
+        } else {
+            res.status(201).send(data);
+        }
+    })
 });
+
+app.get('/sync', (req, res) => {
+    dbModel.find((err, data) => {
+        if(err) {
+            res.status(500).send(err);
+        } else {
+            res.status(200).send(data);
+        }
+    })
+})
 
 // listener
 app.listen(port, () => console.log(`listening on ${port}`));
