@@ -16,6 +16,8 @@ app.use(cors());
 
 // db config
 
+const conn = 'mongodb+srv://admin:zkYomq80UtLWeh6Q@cluster0.oe0jw.mongodb.net/backend-instagram?retryWrites=true&w=majority'
+
 
 // api routes
 app.get('/', (req, res) => res.status(200).send('backend is working on 🔥'));
